@@ -4,7 +4,7 @@ import { Cache } from 'cache-manager';
 export class SessionProvider {
   TTL = 300000; // 5 minutes cache expiry
 
-  constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) { }
+  constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {}
 
   public async getSessionState(sessionid: string): Promise<string> {
     return await this.cacheManager.get(sessionid);
