@@ -16,4 +16,8 @@ export class SessionProvider {
   ): Promise<void> {
     return await this.cacheManager.set(sessionid, state, this.TTL);
   }
+
+  public async getStateData(state: string, config: object): Promise<any> {
+    return await config[state];
+  }
 }
