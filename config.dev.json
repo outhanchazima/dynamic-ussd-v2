@@ -2,13 +2,13 @@
     "home": {
         "text": "Welcome to our USSD application. Choose an option:",
         "options": [
-            "1. KPLC Token",
-            "2. KPLC Prepaid",
-            "3. Buy Airtime",
-            "4. Nairobi Water",
-            "5. Pay TV",
-            "6. My Wallet",
-            "7. Other Payments"
+            "1 KPLC Token",
+            "2 KPLC Prepaid",
+            "3 Buy Airtime",
+            "4 Nairobi Water",
+            "5 Pay TV",
+            "6 My Wallet",
+            "7 Other Payments"
         ],
         "next": {
             "1": "kplc_token",
@@ -23,12 +23,12 @@
     "kplc_token": {
         "text": "Select a meter/account:",
         "options": [
-            "1. A021VJS",
-            "2. A012324",
-            "3. Delete a meter",
-            "4. Add another meter",
-            "0. Back",
-            "00. Main Menu"
+            "1 A021VJS",
+            "2 A012324",
+            "3 Delete a meter",
+            "4 Add another meter",
+            "0 Back",
+            "00 Main Menu"
         ],
         "next": {
             "1": "select_amount",
@@ -51,10 +51,10 @@
     "payment_method": {
         "text": "Select a payment method:",
         "options": [
-            "1. Mpesa",
-            "2. Wallet",
-            "0. Back",
-            "00. Main Menu"
+            "1 Mpesa",
+            "2 Wallet",
+            "0 Back",
+            "00 Main Menu"
         ],
         "next": {
             "1": "enter_phone_number",
