@@ -21,79 +21,66 @@ export class AppController {
   ): Promise<Response<string>> {
     const { msisdn, sessionid, inputs } = req.query;
 
-    console.log('msisdn: ', msisdn);
-    console.log('sessionId: ', sessionid);
-    console.log('inputs: ', inputs);
+    console.log(
+      `msisdn:-- ${msisdn} SessionID:-- ${sessionid} Inputs:-- ${inputs}`,
+    );
 
-    // VERSION 2 BELLOW
-    // Get the current state from the session
+    // Get the current state from the session if absent will be null
     let state = await this.sessionProvider.getSessionState(
       sessionid.toString(),
     );
+    console.log(`fetched state: ${state}`);
+
     if (!state) {
-      state = 'home';
+      // If the state is null, set the state to home
+      state = 'main_menu';
       await this.sessionProvider.setSessionState(sessionid.toString(), state);
     }
 
     // Split the inputs into an array
     const inputArray = inputs.toString().split('*');
+    console.log(`input array: ${inputArray}`);
 
     // Get the latest input
     const latestInput = inputArray[inputArray.length - 1];
+    console.log(`Current Input: ${latestInput}`);
 
-    // Get the current state data from the config
+    // Get the current state menu data from the config
     const stateData = await this.sessionProvider.getStateData(
       state,
       this.config,
     );
-    let responseText = stateData.text;
+    const responseText = stateData.text;
 
     // If the latest input is a number, update the state
-    if (Number.isInteger(parseInt(latestInput))) {
+    if (latestInput) {
       const nextState = stateData.next[latestInput];
       if (nextState) {
         state = nextState;
         await this.sessionProvider.setSessionState(sessionid.toString(), state);
       }
-    } else if (latestInput === 'input') {
-      // If the latest input is 'input', process the payment
-      console.log('processing payment.............');
-      responseText = 'Payment Completed';
-      // responseText = this.appService.processPayment(msisdn, sessionid, inputArray);
+    } else {
+      // state = stateData.next.input;
+      state = 'main_menu';
+      await this.sessionProvider.setSessionState(sessionid.toString(), state);
+      // If it's a dynamic input, process the payment
+      console.log('processing payment part b.............');
+      // responseText = 'Payment Completed parb b';
+      // responseText = this.appService.processPayment(msisdn, sessionid, [latestInput]);
+    }
+    if (stateData.next.input) {
+      // If it's a dynamic input, process the payment
+      state = stateData.next.input;
+      await this.sessionProvider.setSessionState(sessionid.toString(), state);
+
+      console.log('processing payment part b.............');
+      // responseText = this.appService.processPayment(msisdn, sessionid, [latestInput]);
     }
 
-    // Get the options for the current state
-    const options = stateData.options.join('\n');
+    // // Get the options for the current statestateData
+    // const options = stateData.options.join('\n');
 
-    // Return the response text and options
-    return res.contentType('text/plain').send(`${responseText}\n${options}`);
+    // Return the response text and options1
+    return res.contentType('text/plain').send(`${responseText}`);
   }
-
-  // VERSION 1 BELLOW
-  // const inputArray = String(inputs).split('*');
-  // let currentPage = 'home';
-  // let response = '';
-
-  // console.log('inputArray: ', inputArray);
-
-  // for (const input of inputArray) {
-  //   const page = this.config[currentPage];
-  //   console.log('The current page is: ', page);
-  //   response += page.text + '\n';
-
-  //   if (page.options.length > 0) {
-  //     for (const [index, option] of page.options.entries()) {
-  //       response += `${option}\n`;
-  //     }
-  //     currentPage = page.next[input];
-  //   } else {
-  //     // this is an input page, process the input and move to the next page
-  //     // ...
-  //     currentPage = page.next.input;
-  //   }
-  // }
-  // console.log('new currentPage', currentPage);
-  // console.log('input',)
-
-  // return res.contentType('text/plain').send(response);
 }

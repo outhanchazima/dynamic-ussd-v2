@@ -1,15 +1,6 @@
 {
-    "home": {
-        "text": "Welcome to our USSD application. Choose an option:",
-        "options": [
-            "1 KPLC Token",
-            "2 KPLC Prepaid",
-            "3 Buy Airtime",
-            "4 Nairobi Water",
-            "5 Pay TV",
-            "6 My Wallet",
-            "7 Other Payments"
-        ],
+    "main_menu": {
+        "text": "Welcome acc__bal to our USSD application. Choose an option: \n1 KPLC Token \n2 KPLC Prepaid\n3 Buy Airtime\n4 Nairobi Water\n5 Pay TV\n6 My Wallet\n7 Other Payments",
         "next": {
             "1": "kplc_token",
             "2": "kplc_prepaid",
@@ -21,55 +12,52 @@
         }
     },
     "kplc_token": {
-        "text": "Select a meter/account:",
-        "options": [
-            "1 A021VJS",
-            "2 A012324",
-            "3 Delete a meter",
-            "4 Add another meter",
-            "0 Back",
-            "00 Main Menu"
-        ],
+        "text": "Select a meter or enter new meter:\n your_meter 0 Back 00 Main Menu",
         "next": {
-            "1": "select_amount",
-            "2": "select_amount",
-            "3": "delete_meter",
-            "4": "add_meter",
+            "default": "select_amount",
             "0": "kplc_token",
-            "00": "home"
+            "00": "main_menu"
         }
     },
     "select_amount": {
         "text": "How much do you want to spend?",
-        "options": [],
         "next": {
-            "input": "payment_method",
+            "default": "payment_method",
             "0": "kplc_token",
-            "00": "home"
+            "00": "main_menu"
         }
     },
     "payment_method": {
-        "text": "Select a payment method:",
-        "options": [
-            "1 Mpesa",
-            "2 Wallet",
-            "0 Back",
-            "00 Main Menu"
-        ],
+        "text": "Select a payment method:\n 1 Mpesa \n2 Wallet \n0 Back \n00 Main Menu",
         "next": {
             "1": "enter_phone_number",
             "2": "enter_wallet_details",
             "0": "select_amount",
-            "00": "home"
+            "00": "main_menu"
         }
     },
     "enter_phone_number": {
         "text": "Enter your phone number:",
         "options": [],
+        "isInputRequired": true,
         "next": {
-            "input": "home",
+            "input": "confirmation",
             "0": "payment_method",
-            "00": "home"
+            "00": "main_menu"
         }
+    },
+    "confirmation": {
+        "text": "Present Bill Details, \n 1 Confirm \n 2 Stop",
+        "options": [],
+        "isInputRequired": false,
+        "next": {
+            "1": "termination",
+            "2": "main_menu",
+            "0": "payment_method",
+            "00": "main_menu"
+        }
+    },
+    "termination": {
+        "text": " {{build}}.Thank you for using our USSD application. Goodbye!"
     }
 }

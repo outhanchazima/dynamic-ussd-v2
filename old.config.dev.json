@@ -1,0 +1,76 @@
+{
+    "main-menu": {
+        "text": "Welcome to our USSD application. Choose an option:",
+        "options": [
+            "1 KPLC Token",
+            "2 KPLC Prepaid",
+            "3 Buy Airtime",
+            "4 Nairobi Water",
+            "5 Pay TV",
+            "6 My Wallet",
+            "7 Other Payments"
+        ],
+        "next": {
+            "1": "kplc_token",
+            "2": "kplc_prepaid",
+            "3": "buy_airtime",
+            "4": "nairobi_water",
+            "5": "pay_tv",
+            "6": "my_wallet",
+            "7": "other_payments"
+        }
+    },
+    "kplc_token": {
+        "text": "Select a meter/account:",
+        "options": [
+            "1 A021VJS",
+            "2 A012324",
+            "3 Delete a meter",
+            "4 Add another meter",
+            "0 Back",
+            "00 Main Menu"
+        ],
+        "next": {
+            "1": "select_amount",
+            "2": "select_amount",
+            "3": "delete_meter",
+            "4": "add_meter",
+            "0": "kplc_token",
+            "00": "main-menu"
+        }
+    },
+    "select_amount": {
+        "text": "How much do you want to spend?",
+        "options": [],
+        "isInputRequired": true,
+        "next": {
+            "input": "payment_method",
+            "0": "kplc_token",
+            "00": "main-menu"
+        }
+    },
+    "payment_method": {
+        "text": "Select a payment method:",
+        "options": [
+            "1 Mpesa",
+            "2 Wallet",
+            "0 Back",
+            "00 Main Menu"
+        ],
+        "next": {
+            "1": "enter_phone_number",
+            "2": "enter_wallet_details",
+            "0": "select_amount",
+            "00": "main-menu"
+        }
+    },
+    "enter_phone_number": {
+        "text": "Enter your phone number:",
+        "options": [],
+        "next": {
+            "input": "main-menu",
+            "0": "payment_method",
+            "00": "main-menu"
+        }
+    }
+}
